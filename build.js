@@ -3,4 +3,4 @@ const {
     url
 } = process.env;
 
-console.log('url', url);
+require('https').get(url);
