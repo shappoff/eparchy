@@ -1,25 +1,28 @@
-name: gsheet.action test
-on: push
+name: Build and deploy App
+
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
-  fetch:
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
     steps:
-      - id: 'update_worksheet'
-        uses: jroehl/gsheet.action@v1.0.0 # you can specify '@release' to always have the latest changes
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          spreadsheetId: 1QaTumQ_hIFWAwV8gh3yHXEgKKg5gxO3N7rUwKtlbxh8
-          commands: | # list of commands, specified as a valid JSON string
-            [
-              { "command": "addWorksheet", "args": { "worksheetTitle": "<worksheetTitle>" }},
-              { "command": "updateData", "args": { "data": [["A1", "A2", "A3"]] }},
-              { "command": "getData", "args": { "range": "'Лист1'!A2:B3" } }
-            ]
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build
         env:
-          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
-          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
-      - name: dump results
-        env:
-          #  the output of the action can be found in ${{ steps.update_worksheet.outputs.results }}
-          RESULTS: ${{ steps.update_worksheet.outputs.results }}
-        run: echo "$RESULTS" | jq
+          url: ${{ secrets.URL }}
+        run: |
+          npm install
+          npm run trigger url=$url
