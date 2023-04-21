@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "trigger": "node build.js"
+    "trigger": "node build.js",
+    "deploy:app": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,9 @@
   },
   "homepage": "https://github.com/shappoff/eparchy#readme",
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "gh-pages": "^5.0.0",
+    "googleapis": "^105.0.0",
     "node-fetch": "^3.3.0"
   }
 }
