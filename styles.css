@@ -488,12 +488,6 @@ body {
     background: white
 }
 article {
-    max-width: 500px;
     min-width: 250px;
-    border-radius: 1em;
     padding: 1em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) }
+}
