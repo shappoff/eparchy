@@ -491,3 +491,20 @@ article {
     min-width: 250px;
     padding: 1em;
 }
+
+#results {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid;
+    width: 100%;
+    padding-left: 0;
+}
+
+#results > li {
+    border-bottom: 1px solid;
+    padding: 8px;
+}
+
+#results > li:hover {
+    background-color: #f4f4f4;
+}
